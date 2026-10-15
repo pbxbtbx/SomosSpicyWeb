@@ -63,3 +63,13 @@ Biografía y frase definitivas, foto de grupo, nombres e instrumentos, fotos ind
 ## Accesibilidad y mantenimiento
 
 La navegación, presentación, contacto y estados vacíos siguen disponibles sin JavaScript. Los listados configurados requieren JavaScript; si quieres que esos datos se lean también sin él, añade su versión HTML. Revisa los textos alternativos, subtítulos y contraste al cambiar recursos o colores. No añadas credenciales ni información privada: todo archivo publicado será accesible.
+
+## Spotify, Patreon y novedades
+
+Instagram ya enlaza a `https://www.instagram.com/_losspicy/`. Añade las URL oficiales en `CONFIG.spotify` y `CONFIG.patreon`: los estados pendientes se convierten en enlaces automáticamente.
+
+El formulario está visible pero desactivado hasta configurar un servicio real. GitHub Pages no almacena ni envía suscripciones. En `CONFIG.newsletter`, indica el endpoint HTTPS POST proporcionado por el servicio, el nombre exacto del campo de correo, los campos ocultos públicos que exija y la URL de vuestra política de privacidad. No pongas claves API en la web. Si el proveedor requiere JavaScript propio, una API o CAPTCHA, habrá que adaptar la integración siguiendo sus instrucciones.
+
+Una vez conectado, el formulario valida el correo y requiere consentimiento antes de enviar al proveedor. El proveedor debe confirmar el alta; la web no muestra un éxito ficticio. Configura también la baja y, preferiblemente, confirmación por correo en el proveedor. Comprueba el recorrido completo con una dirección de prueba antes de abrir las suscripciones.
+
+Las guindillas son elementos decorativos sin interacción y se ocultan a lectores de pantalla. Las frases se editan directamente en index.html.

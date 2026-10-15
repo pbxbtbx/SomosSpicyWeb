@@ -12,7 +12,15 @@
 */
 const CONFIG = {
   canciones: [], conciertos: [], miembros: [], productos: [], galeria: [],
-  redes: [], // Instagram, TikTok, YouTube, Spotify... solo con sus URL reales.
+  redes: [{ nombre: 'Instagram · @_losspicy', url: 'https://www.instagram.com/_losspicy/' }],
+  spotify: '', // URL pública del perfil oficial
+  patreon: '', // URL pública de vuestra página de Patreon
+  newsletter: {
+    action: '', // Endpoint HTTPS POST facilitado por el proveedor de email marketing
+    campoCorreo: 'EMAIL', // Nombre del campo que espera el proveedor (EMAIL, email...)
+    privacidad: '', // URL de la política real antes de admitir suscripciones
+    camposOcultos: {} // Solo identificadores públicos que requiera el proveedor; nunca claves privadas
+  },
   dossier: '' // Por ejemplo: assets/dossier-spicy.pdf
 };
 
@@ -156,3 +164,37 @@ document.addEventListener('keydown',event=>{ if(event.key==='Escape' && menu.get
 $('#copiar').hidden=false; $('#copiar').addEventListener('click',async()=>{ try{ await navigator.clipboard.writeText('somosspicy@gmail.com'); $('#copy-status').textContent='¡Correo copiado!'; }catch{ $('#copy-status').textContent='No se pudo copiar. Selecciona el correo o pulsa el enlace para escribirnos.'; } });
 $('#cerrar-imagen').addEventListener('click',()=>$('#lightbox').close());
 $('#lightbox').addEventListener('click',event=>{ if(event.target===$('#lightbox')) $('#lightbox').close(); });
+
+/* Plataformas y suscripciones: no se inventan perfiles ni se guardan correos localmente. */
+for (const [selector, url, label] of [
+  ['#spotify-perfil', CONFIG.spotify, 'Escucha a SPICY en Spotify ↗'],
+  ['#patreon-perfil', CONFIG.patreon, 'Visita nuestro Patreon ↗']
+]) {
+  const destination = link(label, url, 'button dark', true);
+  if (destination) $(selector).querySelector('.platform-pending').replaceWith(destination);
+}
+const newsletter = CONFIG.newsletter;
+const subscriptionForm = $('#newsletter-form');
+const endpoint = safeUrl(newsletter.action, true);
+const privacyUrl = safeUrl(newsletter.privacidad);
+if (endpoint && new URL(endpoint).protocol === 'https:' && privacyUrl) {
+  subscriptionForm.action = endpoint;
+  $('#newsletter-email').name = newsletter.campoCorreo || 'EMAIL';
+  const privacy = $('#newsletter-privacy');
+  privacy.href = privacyUrl; privacy.target = '_blank'; privacy.rel = 'noopener noreferrer';
+  privacy.hidden = false; $('#newsletter-privacy-pending').hidden = true;
+  for (const [name, value] of Object.entries(newsletter.camposOcultos || {})) {
+    const input = element('input'); input.type = 'hidden'; input.name = name; input.value = String(value); subscriptionForm.append(input);
+  }
+  subscriptionForm.querySelectorAll('input, button').forEach(control => { control.disabled = false; });
+  $('#newsletter-status').textContent = 'El alta se tramita con nuestro proveedor de correo. Podrás darte de baja desde cada envío.';
+  subscriptionForm.addEventListener('submit', () => {
+    // Envío POST normal al proveedor: su página debe confirmar el alta (y el doble opt-in si se configura).
+    $('#newsletter-status').textContent = 'Abriendo el servicio de suscripción para completar el alta…';
+  });
+} else {
+  subscriptionForm.addEventListener('submit', event => {
+    event.preventDefault();
+    $('#newsletter-status').textContent = 'Las suscripciones todavía no están abiertas.';
+  });
+}

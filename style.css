@@ -36,3 +36,23 @@
 .logo-watermark{position:absolute;z-index:-1;width:clamp(240px,38vw,540px);height:auto;aspect-ratio:1;right:-6%;top:5%;border-radius:50%;transform:rotate(18deg);opacity:.15;pointer-events:none}
 .logo-footer{width:62px;height:62px;border:3px solid var(--black);border-radius:50%;transform:rotate(8deg)}
 @media(max-width:760px){.logo-mini{width:40px;height:40px}.logo-seal{width:110px;height:110px}.photo-space{flex-wrap:wrap;padding-bottom:65px}.photo-space p{max-width:210px}.logo-sticker{width:72px;height:72px}.logo-watermark{right:-22%;top:20%;opacity:.1}.logo-footer{width:48px;height:48px}.merch-brand{font-size:clamp(42px,10vw,76px)}}
+
+/* Comunidad, newsletter y guindillas decorativas. */
+.community-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+.community-card{padding:30px;border:1px solid var(--black);border-radius:22px}
+.community-card .eyebrow{margin-bottom:15px}.community-card p:not(.eyebrow){margin:18px 0}
+.platform-pending{font-size:13px;font-weight:700}
+.newsletter{display:grid;grid-template-columns:1fr 1fr;gap:40px;background:var(--red);border-radius:26px;padding:40px;margin-top:45px}
+.newsletter h3{font-family:var(--display);font-weight:400;font-size:clamp(28px,3vw,42px)}
+.newsletter p{margin-top:18px}.newsletter form{min-width:0}.newsletter label{display:block;font-size:14px;font-weight:700}
+.newsletter input[type=email]{display:block;width:100%;border:1px solid var(--black);border-radius:12px;background:var(--white);padding:14px;font:inherit;margin:10px 0 18px}
+.newsletter-consent{display:flex;gap:12px;align-items:start;margin-bottom:20px}
+.newsletter-consent input{width:18px;height:18px;flex:none;margin-top:4px}
+.newsletter-consent label{font-size:12px;font-weight:400}
+.newsletter button{border:1px solid var(--black)}.newsletter button:disabled{opacity:.65;cursor:not-allowed}
+#newsletter-status{font-size:12px}.newsletter input:disabled{opacity:.7}
+.chili{position:absolute;display:block;pointer-events:none;user-select:none;font-size:clamp(35px,5vw,70px);line-height:1;z-index:0}
+.about,.merch,.social{position:relative}.chili-hero{top:24px;right:43%;transform:rotate(28deg)}
+.chili-about{top:35px;right:5%;transform:rotate(-25deg)}.chili-merch{bottom:20px;left:35%;transform:rotate(36deg)}
+.chili-social{top:38px;right:12%;transform:rotate(-35deg)}
+@media(max-width:760px){.community-grid,.newsletter{grid-template-columns:1fr}.newsletter{padding:25px;gap:28px}.chili-hero{right:5%;top:25px}.chili-about{right:8%;top:20px}.chili-merch{left:auto;right:15px;bottom:10px}.chili-social{right:8%;top:20px}}
