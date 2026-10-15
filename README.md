@@ -25,6 +25,10 @@ miembros: [
 ],
 ```
 
+### Slider automático de integrantes
+
+Con dos o más objetos en `CONFIG.miembros`, se muestra un integrante cada 5 segundos, con foto, nombre, instrumento, biografía y redes. Hay botones anterior/siguiente, contador y pausa/reanudación. Se pausa al pasar el puntero, al usar el teclado dentro del carrusel y al ocultar la pestaña. Si el visitante prefiere movimiento reducido, empieza pausado. Con un solo integrante se muestra una tarjeta estática; sin integrantes se conserva Próximamente. Cambia el intervalo en `initMemberSlider($('#integrantes'), 5000)` (milisegundos; por defecto 5000).
+
 ### Música y multimedia
 
 Cada canción admite portada, audio, descripción y una lista de enlaces a plataformas. `embed` acepta enlaces oficiales de inserción de Spotify, YouTube, YouTube con privacidad mejorada o Vimeo; no la URL normal de visualización. Los reproductores tienen controles y no se reproducen solos. Para vídeos locales usa MP4; si hay voz o letra, añade pistas de subtítulos mediante `<track>` en el reproductor correspondiente antes de publicarlos. Añade a `galeria` elementos de tipo `imagen`, `video` o `embed`. Las imágenes se amplían en un diálogo que se cierra con el botón o Escape.
@@ -50,7 +54,7 @@ El correo es `somosspicy@gmail.com`. Los botones abren el gestor de correo del v
 5. En `index.html`, añade etiquetas `og:url` y `og:image` con las URL públicas absolutas de la web y `assets/logo-spicy.jpg`. Para una vista previa social más cuidada, sustituye esta última por una imagen propia de 1200 × 630.
 6. Para actualizar, edita los archivos y confirma los cambios en `main`; Pages publicará la nueva versión automáticamente. Si no aparece, revisa Actions y recarga sin caché.
 
-No se ha creado un repositorio ni publicado la web desde esta entrega.
+Los archivos están disponibles en el repositorio pbxbtbx/SomosSpicyWeb. La publicación se gestiona desde Settings → Pages.
 
 ## Contenido pendiente
 

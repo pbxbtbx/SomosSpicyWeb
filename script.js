@@ -84,6 +84,57 @@ const upcoming = dates.filter(gig => gig.fecha >= today); const past = dates.fil
 if (upcoming.length) $('#proximos').replaceChildren(...upcoming.map(gig => gigRow(gig,false)));
 if (past.length) $('#pasados').append(element('h3','Así sonaron las últimas citas'), ...past.reverse().map(gig => gigRow(gig,true)));
 if (CONFIG.miembros.length) $('#integrantes').replaceChildren(...CONFIG.miembros.map(member => { const card = element('article','','member'); const img = picture(member.foto,member.nombre + ', ' + member.instrumento); if(img) card.append(img); card.append(element('h3',member.nombre),element('p',member.instrumento,'tag'),element('p',member.bio),links(member.redes)); return card; }));
+
+// Carrusel: un integrante por diapositiva. Sin datos, conserva Próximamente.
+function initMemberSlider(container, interval = 5000) {
+  const slides = Array.from(container.children);
+  if (slides.length < 2 || !slides.every(slide => slide.classList.contains('member'))) return;
+  container.classList.add('member-slider');
+  container.setAttribute('role', 'region');
+  container.setAttribute('aria-roledescription', 'carrusel');
+  container.setAttribute('aria-label', 'Integrantes de SPICY');
+  const controls = element('div', '', 'member-controls');
+  const previous = element('button', '←', 'member-arrow');
+  const next = element('button', '→', 'member-arrow');
+  previous.setAttribute('aria-label', 'Integrante anterior');
+  next.setAttribute('aria-label', 'Siguiente integrante');
+  const toggle = element('button', 'Pausar', 'member-toggle');
+  const count = element('span', '', 'member-count');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let index = 0, timer = null, paused = reduced.matches, hovering = false;
+  function show(value) {
+    index = (value + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.hidden = i !== index;
+      slide.setAttribute('role', 'group');
+      slide.setAttribute('aria-roledescription', 'diapositiva');
+      slide.setAttribute('aria-label', (i + 1) + ' de ' + slides.length);
+    });
+    count.textContent = (index + 1) + ' / ' + slides.length;
+  }
+  function schedule() {
+    clearInterval(timer); timer = null;
+    toggle.textContent = paused ? 'Reanudar' : 'Pausar';
+    toggle.setAttribute('aria-label', paused ? 'Reanudar slider automático' : 'Pausar slider automático');
+    if (!paused && !hovering && !document.hidden && !container.contains(document.activeElement)) {
+      timer = setInterval(() => show(index + 1), interval);
+    }
+  }
+  previous.addEventListener('click', () => { show(index - 1); schedule(); });
+  next.addEventListener('click', () => { show(index + 1); schedule(); });
+  toggle.addEventListener('click', () => { paused = !paused; schedule(); });
+  container.addEventListener('mouseenter', () => { hovering = true; schedule(); });
+  container.addEventListener('mouseleave', () => { hovering = false; schedule(); });
+  container.addEventListener('focusin', schedule);
+  container.addEventListener('focusout', () => { queueMicrotask(schedule); });
+  document.addEventListener('visibilitychange', schedule);
+  reduced.addEventListener('change', () => { paused = reduced.matches; schedule(); });
+  controls.append(previous, count, next, toggle);
+  container.append(controls);
+  show(0); schedule();
+}
+initMemberSlider($('#integrantes'));
+
 if (CONFIG.productos.length) $('#productos').replaceChildren(...CONFIG.productos.map(product => { const card = element('article','','product'); const img = picture(product.imagen,product.nombre); if(img) card.append(img); card.append(element('h3',product.nombre),element('p',product.descripcion)); if(product.tallas) card.append(element('p','Tallas: '+product.tallas)); if(product.precio) card.append(element('p',product.precio)); const shop = link('Ver en la tienda ↗',product.tienda,'button dark',true); if(shop) card.append(shop); else { const a=element('a','Consultar por correo ↗','button dark'); a.href='mailto:somosspicy@gmail.com?subject='+encodeURIComponent('Merch SPICY: '+product.nombre); card.append(a); } return card; }));
 const media = CONFIG.galeria.map(item => {
   if(item.tipo === 'embed') return embed(item.src,item.descripcion);

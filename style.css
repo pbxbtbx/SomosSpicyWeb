@@ -5,3 +5,17 @@
 @media(min-width:1500px){.hero,.section,.header,footer{padding-left:max(6%,calc((100vw - 1350px)/2));padding-right:max(6%,calc((100vw - 1350px)/2))}}
 @media(max-width:760px){.header{height:auto;min-height:76px;flex-wrap:wrap;padding:16px 6%;gap:14px}.header nav{width:100%;flex-wrap:wrap;gap:16px}.menu:not([hidden]){display:block;border:1px solid;border-radius:20px;background:none;padding:7px 15px}.header nav.mobile-collapsed{display:none}.hero{grid-template-columns:1fr;padding:40px 6% 70px;gap:35px}.hero h1{font-size:clamp(70px,16vw,110px)}.hero-art{width:min(100%,450px);justify-self:center}.hero .actions{gap:18px}.hero-art .star{font-size:90px}.section{padding:62px 6%}.about,.merch{grid-template-columns:1fr;gap:30px}.about-copy{padding:0}.photo-space{gap:18px;min-height:270px}.photo-space>span{font-size:90px}.photo-space p{font-size:26px}.section-heading{align-items:start;flex-direction:column}.outline-stamp{align-self:end;margin-top:-40px;font-size:15px}.release{grid-template-columns:1fr}.record-art{max-height:330px;aspect-ratio:auto}.vinyl{max-width:270px}.release-info{padding:25px}.empty-row{align-items:start;flex-wrap:wrap}.big-symbol{display:none}.empty-row>a{margin-left:0}.member-placeholder{padding:25px}.merch-preview{transform:rotate(1deg)}footer{gap:18px}footer nav{margin-left:0;width:100%;flex-wrap:wrap}.gig-row{flex-wrap:wrap}.gig-row .button{margin-left:0}.email{font-size:clamp(18px,5.1vw,36px)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Slider de integrantes: las tarjetas se añaden desde CONFIG.miembros. */
+.member-slider{display:block;max-width:920px;margin:45px auto 0}
+.member-slider .member[hidden]{display:none}
+.member-slider .member:not([hidden]){display:flow-root;min-height:300px;animation:member-appear .45s ease}
+.member-slider .member img{float:left;width:40%;max-height:400px;object-fit:cover;border-radius:140px 140px 8px 8px;margin:0 40px 20px 0}
+.member-slider .member h3{font-family:var(--display);font-weight:400;font-size:clamp(30px,4vw,52px);padding-top:22px;overflow-wrap:anywhere}
+.member-controls{display:flex;gap:16px;align-items:center;border-top:1px solid #ffffff4d;padding-top:22px}
+.member-controls button{min-height:44px;border:1px solid var(--white);background:transparent;color:var(--white);border-radius:30px;padding:8px 18px}
+.member-controls button:hover{background:var(--white);color:var(--black)}
+.member-toggle{margin-left:auto}.member-count{font-size:13px;font-variant-numeric:tabular-nums}
+@keyframes member-appear{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:translateX(0)}}
+@media(max-width:600px){.member-slider .member img{float:none;width:100%;max-height:360px;margin:0 0 20px}.member-slider .member:not([hidden]){min-height:0}.member-controls{gap:8px}.member-controls button{padding:8px 13px}}
+@media(prefers-reduced-motion:reduce){.member-slider .member:not([hidden]){animation:none}}
