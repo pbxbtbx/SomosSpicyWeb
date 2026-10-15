@@ -73,3 +73,7 @@ El formulario está visible pero desactivado hasta configurar un servicio real. 
 Una vez conectado, el formulario valida el correo y requiere consentimiento antes de enviar al proveedor. El proveedor debe confirmar el alta; la web no muestra un éxito ficticio. Configura también la baja y, preferiblemente, confirmación por correo en el proveedor. Comprueba el recorrido completo con una dirección de prueba antes de abrir las suscripciones.
 
 Las guindillas son elementos decorativos sin interacción y se ocultan a lectores de pantalla. Las frases se editan directamente en index.html.
+
+## Versión WordPress
+
+Tema instalable en wordpress/spicy. Consulta wordpress/INSTALACION.md. La versión de la raíz sigue funcionando en GitHub Pages. La fuente secundaria ahora es Arial/Helvetica, con Shrikhand solo en títulos.
